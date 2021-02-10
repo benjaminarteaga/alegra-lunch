@@ -5594,6 +5594,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     recipes: {
@@ -5896,12 +5898,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var portal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! portal-vue */ "./node_modules/portal-vue/dist/portal-vue.common.js");
-/* harmony import */ var vue_paginate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-paginate */ "./node_modules/vue-paginate/dist/vue-paginate.js");
-/* harmony import */ var vue_paginate__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_paginate__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _inertiajs_progress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/progress */ "./node_modules/@inertiajs/progress/dist/index.js");
+/* harmony import */ var _inertiajs_progress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/progress */ "./node_modules/@inertiajs/progress/dist/index.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // Import modules...
 
 
@@ -5909,18 +5909,16 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // Import
 
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_4__.default.mixin({
+vue__WEBPACK_IMPORTED_MODULE_3__.default.mixin({
   methods: {
     route: route
   }
 });
-vue__WEBPACK_IMPORTED_MODULE_4__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.plugin);
-vue__WEBPACK_IMPORTED_MODULE_4__.default.use(portal_vue__WEBPACK_IMPORTED_MODULE_1__.default);
-vue__WEBPACK_IMPORTED_MODULE_4__.default.use((vue_paginate__WEBPACK_IMPORTED_MODULE_2___default()));
-_inertiajs_progress__WEBPACK_IMPORTED_MODULE_3__.InertiaProgress.init();
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.plugin);
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(portal_vue__WEBPACK_IMPORTED_MODULE_1__.default);
+_inertiajs_progress__WEBPACK_IMPORTED_MODULE_2__.InertiaProgress.init();
 var app = document.getElementById('app');
-new vue__WEBPACK_IMPORTED_MODULE_4__.default({
+new vue__WEBPACK_IMPORTED_MODULE_3__.default({
   render: function render(h) {
     return h(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.App, {
       props: {
@@ -31824,21 +31822,6 @@ var render = function() {
                           "jet-nav-link",
                           {
                             attrs: {
-                              href: _vm.route("dashboard"),
-                              active: _vm.route().current("dashboard")
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                Dashboard\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "jet-nav-link",
-                          {
-                            attrs: {
                               href: _vm.route("pedidos.index"),
                               active: _vm.route().current("pedidos.*")
                             }
@@ -34453,7 +34436,10 @@ var render = function() {
             },
             [
               _c("td", { staticClass: "border border-indigo-400" }, [
-                _vm._v(_vm._s(buy.ingredient.name))
+                _vm._v(_vm._s(buy.ingredient.name) + " "),
+                _c("i", {
+                  domProps: { innerHTML: _vm._s(buy.ingredient.emoji) }
+                })
               ]),
               _vm._v(" "),
               _c(
@@ -34955,7 +34941,8 @@ var render = function() {
             },
             [
               _c("td", { staticClass: "border border-indigo-400" }, [
-                _vm._v(_vm._s(ingredient.name))
+                _vm._v(_vm._s(ingredient.name) + " "),
+                _c("i", { domProps: { innerHTML: _vm._s(ingredient.emoji) } })
               ]),
               _vm._v(" "),
               _c("td", { staticClass: "border border-indigo-400" }, [
@@ -36429,9 +36416,33 @@ var render = function() {
               _c(
                 "td",
                 { staticClass: "border border-indigo-400" },
-                _vm._l(recipe.ingredients, function(ingredient) {
+                _vm._l(recipe.ingredients, function(ingredient, index) {
                   return _c("ul", { key: ingredient.id }, [
-                    _c("li", [_vm._v(_vm._s(ingredient.name))])
+                    _c(
+                      "li",
+                      {
+                        staticClass: "border-b",
+                        class: {
+                          "border-indigo-300":
+                            index !== recipe.ingredients.length - 1
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(ingredient.name) +
+                            " "
+                        ),
+                        _c("i", {
+                          domProps: { innerHTML: _vm._s(ingredient.emoji) }
+                        }),
+                        _vm._v(
+                          " (Quantity: " +
+                            _vm._s(ingredient.pivot.quantity) +
+                            ")\n                        "
+                        )
+                      ]
+                    )
                   ])
                 }),
                 0
@@ -37264,16 +37275,6 @@ function normalizeComponent (
   }
 }
 
-
-/***/ }),
-
-/***/ "./node_modules/vue-paginate/dist/vue-paginate.js":
-/*!********************************************************!*\
-  !*** ./node_modules/vue-paginate/dist/vue-paginate.js ***!
-  \********************************************************/
-/***/ (() => {
-
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/var/www/html/node_modules/vue-paginate/dist/vue-paginate.js'");
 
 /***/ }),
 

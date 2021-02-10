@@ -17,6 +17,7 @@ class CreateIngredientRecipeTable extends Migration
             $table->id();
             $table->unsignedBigInteger('ingredient_id');
             $table->unsignedBigInteger('recipe_id');
+            $table->integer('quantity')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

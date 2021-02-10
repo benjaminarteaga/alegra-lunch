@@ -19,36 +19,54 @@ class RecipeSeeder extends Seeder
             'name' => 'Grill with rice & salad'
         ])
         ->ingredients()
-        ->sync(Ingredient::all()->modelKeys());
+        ->sync($this->randomIngredients(Ingredient::all()->modelKeys()));
 
         Recipe::create([
             'name' => 'Veggie salad'
         ])
         ->ingredients()
-        ->sync([1, 2, 3, 6, 7]);
+        ->sync($this->randomIngredients([1, 2, 3, 6, 7]));
 
         Recipe::create([
             'name' => 'Chicken with french fries'
         ])
         ->ingredients()
-        ->sync([3, 5, 10]);
+        ->sync($this->randomIngredients([3, 5, 10]));
 
         Recipe::create([
             'name' => 'Beef with rice'
         ])
         ->ingredients()
-        ->sync([4, 7, 9]);
+        ->sync($this->randomIngredients([4, 7, 9]));
 
         Recipe::create([
             'name' => 'Gourmet taste'
         ])
         ->ingredients()
-        ->sync(Ingredient::all()->modelKeys());
+        ->sync($this->randomIngredients(Ingredient::all()->modelKeys()));
 
         Recipe::create([
             'name' => 'Meat with vegetables'
         ])
         ->ingredients()
-        ->sync([1, 2, 3, 6, 7, 9]);
+        ->sync($this->randomIngredients([1, 2, 3, 6, 7, 9]));
+    }
+
+    /**
+     * Combine ingredients and quantity.
+     *
+     * @return array
+     */
+    private function randomIngredients($array)
+    {
+        $newArray = [];
+
+        foreach($array as $index => $item) {
+            array_push($newArray, ['quantity' => rand(1,3)]);
+        }
+
+        $combined = array_combine($array, $newArray);
+
+        return $combined;
     }
 }

@@ -13,8 +13,10 @@
                     <td class="border border-indigo-400">{{ recipe.id }}</td>
                     <td class="border border-indigo-400">{{ recipe.name }}</td>
                     <td class="border border-indigo-400">
-                        <ul v-for="ingredient in recipe.ingredients" :key="ingredient.id">
-                            <li>{{ ingredient.name }}</li>
+                        <ul v-for="(ingredient, index) in recipe.ingredients" :key="ingredient.id">
+                            <li class="border-b" :class="{'border-indigo-300': index !== recipe.ingredients.length - 1}">
+                                {{ ingredient.name }} <i v-html="ingredient.emoji"></i> (Quantity: {{ ingredient.pivot.quantity }})
+                            </li>
                         </ul>
                     </td>
                 </tr>

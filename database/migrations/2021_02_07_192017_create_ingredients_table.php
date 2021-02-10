@@ -17,6 +17,7 @@ class CreateIngredientsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('stock')->default(5);
+            $table->string('emoji', 20);
             $table->timestamps();
             $table->softDeletes();
         });

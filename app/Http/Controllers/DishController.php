@@ -10,6 +10,7 @@ use Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Models\Buy;
+use Log;
 
 class DishController extends Controller
 {
@@ -54,9 +55,11 @@ class DishController extends Controller
             $ingredients = $recipe->ingredients()->get();
 
             foreach($ingredients as $item) {
-
-                // If no stock, go to market
-                if($item->stock == 0) {
+                \Log::debug($item);
+                if($item->pivot->quantity > $item->stock) {
+                    \Log::debug('pivot quantity | item stock');
+                    \Log::debug($item->pivot->quantity . ' | ' . $item->stock);
+                    
                     do {
                         $response = Http::get('https://recruitment.alegra.com/api/farmers-market/buy', [
                             'ingredient' => Str::lower($item->name),
@@ -68,14 +71,30 @@ class DishController extends Controller
                             'ingredient_id' => $item->id,
                             'quantity' => $buyed,
                         ]);
-                    } while($buyed == 0);
+                        \Log::debug('buyed');
+                        \Log::debug($buyed);
+                        \Log::debug('pre sum');
+                        \Log::debug($item->stock);
+                        $item->stock = $item->stock + $buyed;
+                        \Log::debug('post sum');
+                        \Log::debug($item->stock);
+                        \Log::debug($item->pivot->quantity);
 
-                    $item->stock = $buyed;
+                        \Log::debug($item->pivot->quantity > $item->stock);
+
+                        
+                    } while($buyed == 0 || $item->pivot->quantity > $item->stock);
+
                     $item->save();
                 }
+                \Log::debug('pre sub');
+                \Log::debug($item->stock);
 
-                $item->stock--;
+                $item->stock = $item->stock - $item->pivot->quantity;
                 $item->save();
+
+                \Log::debug('post sub');
+                \Log::debug($item->stock);
             }
 
             $create = Dish::create($request->all() + [

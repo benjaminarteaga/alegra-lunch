@@ -8,7 +8,7 @@
             </thead>
             <tbody>
                 <tr v-for="(ingredient, index) in ingredients" :key="ingredient.id" :class="{'bg-indigo-50': index % 2 === 0, 'bg-indigo-100': index % 2 !== 0}">
-                    <td class="border border-indigo-400">{{ ingredient.name }}</td>
+                    <td class="border border-indigo-400">{{ ingredient.name }} <i v-html="ingredient.emoji"></i></td>
                     <td class="border border-indigo-400">{{ ingredient.stock }}</td>
                 </tr>
             </tbody>

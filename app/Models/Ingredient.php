@@ -19,6 +19,7 @@ class Ingredient extends Model
     protected $fillable = [
         'name',
         'stock',
+        'emoji',
     ];
 
     /**
@@ -26,7 +27,7 @@ class Ingredient extends Model
      */
     public function recipes()
     {
-        return $this->belongsToMany(Recipe::class);
+        return $this->belongsToMany(Recipe::class)->withPivot('quantity')->withTimestamps();
     }
 
     /**

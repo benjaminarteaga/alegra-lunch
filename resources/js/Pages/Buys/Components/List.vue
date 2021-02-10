@@ -9,7 +9,7 @@
             </thead>
             <tbody>
                 <tr v-for="(buy, index) in buys" :key="buy.id" :class="{'bg-indigo-50': index % 2 === 0, 'bg-indigo-100': index % 2 !== 0}">
-                    <td class="border border-indigo-400">{{ buy.ingredient.name }}</td>
+                    <td class="border border-indigo-400">{{ buy.ingredient.name }} <i v-html="buy.ingredient.emoji"></i></td>
                     <td class="border border-indigo-400" :class="[{ 'text-red-600': buy.quantity === 0 }]">
                         {{ buy.quantity !== 0 ? buy.quantity : 'No habia stock en el mercado' }}
                     </td>
