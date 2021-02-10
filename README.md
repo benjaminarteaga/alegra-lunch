@@ -1,62 +1,86 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Descripción :page_with_curl:
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Alegra Lunch disponibiliza un módulo para solicitud de platos preparados, encargandose de elegir un plato aleatoriamente
+y administrando la disponibilidad de ingredientes para cada receta.
 
-## About Laravel
+El usuario genera una orden hacía la cocina de N cantidad de platos, la cocina elige para cada plato una receta
+aleatoriamente de las 6 disponibles, por cada receta se verifican los ingredientes y su cantidad disponible. En caso de
+no haber la cantidad suficiente de ingredientes, automaticamente se consumira una API externa (mercado) donde se pueden
+generar compras del ingrediente, esto se realiza a traves de un ciclo repetitivo hasta que se cuente con la cantidad
+necesaria de ingredientes.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+El tiempo de preparación de cada plato es de 3 minutos.
+La comprobación de stock y compras al mercado son realizadas casi instantaneamente al momento de generar la orden.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Visualizar la aplicación ya montada en:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+[https://alegra-lunch.herokuapp.com](https://alegra-lunch.herokuapp.com)
 
-## Learning Laravel
+Credenciales:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Usuario: admin@mail.com
+Contraseña: 123456789
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Desarrollado con: :wrench:
 
-## Laravel Sponsors
+[Laravel 8.x](https://laravel.com/docs/8.x/)
+[Inertia.js](https://inertiajs.com/) para la integración con [Vue.js v2](https://vuejs.org/v2/guide/)
+## Instalación :package:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+	git clone https://github.com/benjaminarteaga/alegra-lunch.git
+	cd alegra-lunch
 
-### Premium Partners
+	docker run --rm \
+		-v $(pwd):/opt \
+		-w /opt \
+		laravelsail/php80-composer:latest \
+		composer install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+	cp .env.example .env
 
-## Contributing
+## Configuración :construction_worker:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Dentro del archivo `.env` eliminar las variables del prefijo `DB_`:
 
-## Code of Conduct
+	~~DB_CONNECTION=mysql~~
+	~~DB_HOST=127.0.0.1~~
+	~~DB_PORT=3306~~
+	~~DB_DATABASE=alegra_lunch~~
+	~~DB_USERNAME=root~~
+	~~DB_PASSWORD=~~
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Y sustituirlas por:
 
-## Security Vulnerabilities
+	JAWSDB_URL='mysql://izak4svvzv9vagi0:x1y9ud497cbmqb88@z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/xzhizlz96c18n1x3'
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Esto genera una conexión directa a la BD creada en JawsDB, Add-on de Heroku para Base de Datos MySQL
 
-## License
+\* Se muestran las credenciales a la BD en este readme ya que el repositorio es privado.
+\*\* Se puede ver afectado el performance al correr la aplicación local conectandola a la BD remota, más adelante se explica como levantar una BD local.
+## Disponibilizar :whale:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Se utiliza como apoyo el paquete Laravel Sail para la generación de contenedores en Docker.
+
+En la raíz del proyecto ejecutar el siguiente comando para levantar el server:
+
+	./vendor/bin/sail up
+    ./vendor/bin/sail artisan key:generate
+
+## Opcional :construction:
+
+En caso de querer usar una Base de Datos diponibilizada por el contenedor, dejar las credenciales tachadas anteriormente en la seccion *Configuración*:
+
+	~~JAWSDB_URL='mysql://izak4svvzv9vagi0:x1y9ud497cbmqb88@z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/xzhizlz96c18n1x3'~~
+
+Y sustituirlas por:
+
+	DB_CONNECTION=mysql
+	DB_HOST=mysql
+	DB_PORT=3306
+	DB_DATABASE=alegra_lunch
+	DB_USERNAME=root
+	DB_PASSWORD=
+
+Ejecutar las migraciones:
+
+    ./vendor/bin/sail artisan migrate --seed
