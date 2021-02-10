@@ -2732,7 +2732,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['href', 'active'],
   computed: {
     classes: function classes() {
-      return this.active ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out' : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out';
+      return this.active ? 'inline-flex items-center px-1 pt-1 border-b-2 border-green-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out' : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out';
     }
   }
 });
@@ -3808,6 +3808,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -4429,6 +4434,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _Pages_Dishes_Components_Timer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Pages/Dishes/Components/Timer */ "./resources/js/Pages/Dishes/Components/Timer.vue");
+//
+//
 //
 //
 //
@@ -30103,7 +30110,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("inertia-link", { attrs: { href: "/" } }, [
     _c("img", {
-      staticClass: "rounded-full h-24 w-24",
+      staticClass: "rounded-full h-24 w-24 text-center",
       attrs: { src: "/img/alegra.jpeg", alt: "Alegra Logo" }
     })
   ])
@@ -32247,21 +32254,7 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                        Manage Account\n                                    "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "jet-dropdown-link",
-                                      {
-                                        attrs: {
-                                          href: _vm.route("profile.show")
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                        Profile\n                                    "
+                                          "\n                                        Administrar Cuenta\n                                    "
                                         )
                                       ]
                                     ),
@@ -32304,7 +32297,7 @@ var render = function() {
                                           { attrs: { as: "button" } },
                                           [
                                             _vm._v(
-                                              "\n                                            Logout\n                                        "
+                                              "\n                                            Cerrar sesión\n                                        "
                                             )
                                           ]
                                         )
@@ -33564,7 +33557,26 @@ var render = function() {
         {
           key: "logo",
           fn: function() {
-            return [_c("jet-authentication-card-logo")]
+            return [
+              _c(
+                "div",
+                { staticClass: "grid justify-items-center" },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "mb-4 font-bold text-3xl text-green-500" },
+                    [
+                      _vm._v(
+                        "\n                ¡Bienvenido/a a Alegra Lunch!\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("jet-authentication-card-logo")
+                ],
+                1
+              )
+            ]
           },
           proxy: true
         }
@@ -33623,7 +33635,7 @@ var render = function() {
             { staticClass: "mt-4" },
             [
               _c("jet-label", {
-                attrs: { for: "password", value: "Password" }
+                attrs: { for: "password", value: "Contraseña" }
               }),
               _vm._v(" "),
               _c("jet-input", {
@@ -33663,7 +33675,7 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("span", { staticClass: "ml-2 text-sm text-gray-600" }, [
-                  _vm._v("Remember me")
+                  _vm._v("Recuerdame")
                 ])
               ],
               1
@@ -33674,22 +33686,6 @@ var render = function() {
             "div",
             { staticClass: "flex items-center justify-end mt-4" },
             [
-              _vm.canResetPassword
-                ? _c(
-                    "inertia-link",
-                    {
-                      staticClass:
-                        "underline text-sm text-gray-600 hover:text-gray-900",
-                      attrs: { href: _vm.route("password.request") }
-                    },
-                    [
-                      _vm._v(
-                        "\n                Forgot your password?\n            "
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
               _c(
                 "jet-button",
                 {
@@ -33697,7 +33693,7 @@ var render = function() {
                   class: { "opacity-25": _vm.form.processing },
                   attrs: { disabled: _vm.form.processing }
                 },
-                [_vm._v("\n                Login\n            ")]
+                [_vm._v("\n                Iniciar Sesión\n            ")]
               )
             ],
             1
@@ -34687,6 +34683,10 @@ var render = function() {
                 _vm._v(_vm._s(dish.recipe.name))
               ]),
               _vm._v(" "),
+              _c("td", { staticClass: "border border-indigo-400" }, [
+                _vm._v(_vm._s(dish.user.name))
+              ]),
+              _vm._v(" "),
               _c(
                 "td",
                 { staticClass: "border border-indigo-400" },
@@ -34710,6 +34710,10 @@ var staticRenderFns = [
       _c("th", { staticClass: "border border-indigo-400" }, [_vm._v("ID")]),
       _vm._v(" "),
       _c("th", { staticClass: "border border-indigo-400" }, [_vm._v("Receta")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "border border-indigo-400" }, [
+        _vm._v("Solicitado por")
+      ]),
       _vm._v(" "),
       _c("th", { staticClass: "border border-indigo-400" }, [
         _vm._v("Tiempo restante")

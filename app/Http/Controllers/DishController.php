@@ -22,7 +22,7 @@ class DishController extends Controller
     public function index()
     {
         return Inertia::render('Dishes/Index', [
-            'dishes' => Dish::with('recipe')->latest()->get(),
+            'dishes' => Dish::with(['recipe', 'user'])->latest()->get(),
         ]);
     }
 

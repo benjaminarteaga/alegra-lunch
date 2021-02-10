@@ -113,12 +113,12 @@
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            Administrar Cuenta
                                         </div>
 
-                                        <jet-dropdown-link :href="route('profile.show')">
+                                        <!-- <jet-dropdown-link :href="route('profile.show')">
                                             Profile
-                                        </jet-dropdown-link>
+                                        </jet-dropdown-link> -->
 
                                         <jet-dropdown-link :href="route('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">
                                             API Tokens
@@ -129,7 +129,7 @@
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <jet-dropdown-link as="button">
-                                                Logout
+                                                Cerrar sesión
                                             </jet-dropdown-link>
                                         </form>
                                     </template>
