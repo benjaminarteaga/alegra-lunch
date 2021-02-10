@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +28,16 @@ class AppServiceProvider extends ServiceProvider
         if($this->app->environment('production')) {
             \URL::forceScheme('https');
         }
+
+        Inertia::share('flash', function() {
+            $share = [];
+
+            if(Session::get('dish'))
+                $share['dish'] = Session::get('dish');
+
+            return [
+                'status' => Session::get('status'),
+            ] + $share;
+        });
     }
 }

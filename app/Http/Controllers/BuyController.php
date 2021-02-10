@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Buy;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class BuyController extends Controller
 {
@@ -14,7 +15,9 @@ class BuyController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Buys/Index', [
+            'buys' => Buy::with('ingredient')->latest()->get(),
+        ]);
     }
 
     /**

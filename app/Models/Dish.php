@@ -21,6 +21,11 @@ class Dish extends Model
         'user_id',
     ];
 
+    /*
+     * Appends attributes to JSON
+     */
+    protected $appends = ['finish_date'];
+
     /**
      * Get the user that owns the dish.
      */
@@ -35,5 +40,13 @@ class Dish extends Model
     public function recipe()
     {
         return $this->belongsTo(Recipe::class);
+    }
+
+    /*
+     * Get formated date attribute.
+     */
+    public function getFinishDateAttribute()
+    {
+        return $this->created_at->addMinutes(3)->toDateTimeString();
     }
 }

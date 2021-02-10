@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Dish;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use App\Models\Recipe;
+use Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use App\Models\Buy;
 
 class DishController extends Controller
 {
@@ -14,7 +20,9 @@ class DishController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Dishes/Index', [
+            'dishes' => Dish::with('recipe')->latest()->get(),
+        ]);
     }
 
     /**
@@ -35,7 +43,52 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $dish = collect([]);
+
+        for($i = 1; $i <= $request->quantity; $i++) {
+            $recipe = Recipe::all()->random();
+            $ingredients = $recipe->ingredients()->get();
+
+            foreach($ingredients as $item) {
+
+                // If no stock, go to market
+                if($item->stock == 0) {
+                    do {
+                        $response = Http::get('https://recruitment.alegra.com/api/farmers-market/buy', [
+                            'ingredient' => Str::lower($item->name),
+                        ]);
+
+                        $buyed = $response->json()['quantitySold'];
+
+                        Buy::create([
+                            'ingredient_id' => $item->id,
+                            'quantity' => $buyed,
+                        ]);
+                    } while($buyed == 0);
+
+                    $item->stock = $buyed;
+                    $item->save();
+                }
+
+                $item->stock--;
+                $item->save();
+            }
+
+            $create = Dish::create($request->all() + [
+                'recipe_id' => $recipe->id,
+                'user_id' => Auth::id(),
+            ]);
+
+            $dish->push($create);
+        }
+
+        return redirect()->route('pedidos.index')->with([
+            'status' => 'Pedido recibido.',
+        ] + compact('dish'));
     }
 
     /**

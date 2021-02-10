@@ -20,6 +20,18 @@
                                 <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </jet-nav-link>
+                                <jet-nav-link :href="route('pedidos.index')" :active="route().current('pedidos.*')">
+                                    Pedidos
+                                </jet-nav-link>
+                                <jet-nav-link :href="route('recetas.index')" :active="route().current('recetas.*')">
+                                    Recetas
+                                </jet-nav-link>
+                                <jet-nav-link :href="route('ingredientes.index')" :active="route().current('ingredientes.*')">
+                                    Ingredientes
+                                </jet-nav-link>
+                                <jet-nav-link :href="route('compras.index')" :active="route().current('compras.*')">
+                                    Compras
+                                </jet-nav-link>
                             </div>
                         </div>
 
@@ -223,6 +235,9 @@
 
             <!-- Page Content -->
             <main>
+                <div v-if="$page.props.flash.status" class="bg-blue-500 text-white text-sm font-bold p-4">
+                    <p>{{ $page.props.flash.status }}</p>
+                </div>
                 <slot></slot>
             </main>
 
