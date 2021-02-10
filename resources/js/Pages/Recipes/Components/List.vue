@@ -1,5 +1,5 @@
 <template>
-    <div class="py-12">
+    <div class="p-6">
         <h3 class="text-center text-3xl pb-10">Recetas</h3>
 
         <table class="table-auto w-full text-center">
